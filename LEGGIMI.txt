@@ -1,0 +1,17 @@
+OWL•09 — PROTOTIPO AR v0.1
+
+Questo è un primo test FUNZIONANTE con fotocamera e animazione di 6 secondi.
+ATTENZIONE: non riconosce automaticamente il foglio. L'allineamento è manuale e
+l'animazione non segue il foglio se lo muovi. Il QR stampato è un segnaposto.
+
+COME PROVARLO SUL TELEFONO
+1. Pubblica index.html su un sito HTTPS (es. GitHub Pages).
+2. Apri l'indirizzo HTTPS sul telefono.
+3. Premi «Avvia fotocamera» e consenti l'accesso.
+4. Inquadra il foglio A4 stampato.
+5. Trascina sullo schermo per allineare le linee GIALLE alle fessure stampate.
+   Usa + / - per la scala e le frecce per ruotare.
+6. Premi «Animazione» per il ciclo di circa 6 secondi.
+
+PROSSIMO PASSO
+Aggiungere image tracking automatico e generare un QR vero dopo la pubblicazione.
