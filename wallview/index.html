@@ -1,0 +1,716 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <meta name="theme-color" content="#111820">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <title>STRIPWALL — by OWL•09 STUDIO</title>
+  <style>
+    :root{color-scheme:dark;--bg:#111820;--panel:#202b35;--panel2:#293746;--line:#52606e;--text:#f6f7f9;--muted:#b9c6d1;--accent:#e7ae50;--green:#23744a;--red:#843a3a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}main{max-width:900px;margin:auto;padding:16px 14px calc(28px + env(safe-area-inset-bottom))}h1{font-size:clamp(22px,5vw,30px);line-height:1.15;margin:5px 0 8px}h2{font-size:19px;margin:0 0 10px}h3{font-size:16px;margin:0 0 8px}p{color:var(--muted);line-height:1.45;margin:5px 0 14px}.top{display:flex;align-items:center;gap:10px;margin-bottom:14px}.top h1{flex:1}.panel{background:var(--panel);border-radius:14px;padding:15px;margin:12px 0}.panel.tight{padding:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.stack{display:grid;gap:10px}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin:10px 0}.actions>*{flex:1}.btn{min-height:48px;border:1px solid var(--line);background:#314252;color:#fff;padding:11px 15px;border-radius:10px;font:600 15px system-ui;cursor:pointer}.btn:active{transform:translateY(1px)}.btn.primary{background:var(--green);border-color:#369965}.btn.gold{background:#684b21;border-color:#a77b39}.btn.danger{background:var(--red)}.btn.subtle{background:transparent}.btn:disabled{opacity:.48;cursor:not-allowed}.btn.small{min-height:40px;padding:8px 12px;font-size:14px}.muted,.hint,.meta{color:var(--muted);font-size:13px;line-height:1.45}.hint{margin:9px 0 0}.meta{font-size:12px}.archive-list{display:grid;gap:10px}.project-card,.wall-card{background:var(--panel);border:1px solid #354452;border-radius:12px;padding:13px}.project-card h3,.wall-card h3{margin:0 0 4px}.project-card .row,.wall-card .row{align-items:center}.canvas-wrap{position:relative;background:#202020;border:1px solid #354452;border-radius:12px;overflow:hidden;touch-action:none;min-height:245px}.canvas-wrap.plan{height:min(62vh,650px)}.canvas-wrap.wall{height:min(58vh,570px)}canvas{display:block;width:100%;height:100%;touch-action:none}.canvas-wrap.adding{outline:3px solid var(--accent);outline-offset:1px}.field{display:grid;gap:6px;margin:10px 0}.field label{font-size:14px;font-weight:600}.field input[type=range]{width:100%;accent-color:var(--accent);min-height:28px}.file-button{display:flex;align-items:center;justify-content:center;min-height:48px;border:1px solid var(--line);background:#314252;color:white;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;text-align:center}.file-button input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.photo-card{display:flex;gap:12px;align-items:center;background:#19232c;padding:10px;border-radius:10px;margin-top:8px}.photo-card img{width:78px;height:64px;object-fit:cover;border-radius:7px;background:#111820}.photo-card .info{min-width:0;overflow-wrap:anywhere}.photo-card strong{display:block;font-size:13px}.tag{display:inline-block;border-radius:999px;padding:4px 9px;background:#39516a;font-size:12px;font-weight:700}.tag.locked{background:#285d44}.empty{background:#18232c;border:1px dashed #586978;border-radius:10px;padding:14px;color:var(--muted);line-height:1.45}.range-line{display:flex;align-items:center;justify-content:space-between;gap:12px}.range-line strong{min-width:55px;text-align:right}.notice{padding:11px 12px;border-left:4px solid var(--accent);background:#2a302e;border-radius:7px;color:#f4e6c7;font-size:13px;line-height:1.4}.hidden{display:none!important}footer{color:#8f9eaa;font-size:11px;text-align:center;padding:12px}
+    .photo-card{position:relative}.photo-card.photo-openable{cursor:zoom-in}.compact-actions{margin:8px 0 0}.compact-actions>*{flex:0 1 auto}.final-back-row{display:flex;justify-content:flex-start;margin:-8px 0 8px}.plan-delete{position:absolute;right:8px;top:8px;z-index:3;width:38px;height:38px;padding:0;border-radius:50%;font-size:21px}.plan-dot-title{cursor:pointer}.point-notes{width:100%;min-height:96px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#19232c;color:var(--text);font:15px/1.45 system-ui;resize:vertical}.photo-thumbs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.photo-thumbs .photo-card{gap:6px;padding:6px;margin-top:8px;min-width:0}.photo-thumbs .photo-card img{width:58px;height:48px}.photo-delete{position:absolute;right:7px;top:7px;width:32px;height:32px;border-radius:50%;border:1px solid #ffffff88;background:#111820e8;color:#fff;font:700 18px system-ui;line-height:1;cursor:pointer;z-index:1}.photo-modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;background:#0009;padding:20px}.photo-modal-card{width:min(100%,360px);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}.photo-modal-actions{display:flex;gap:10px;margin-top:16px}.photo-viewer{position:fixed;inset:0;z-index:40;background:#080b0e;display:flex;flex-direction:column;padding:env(safe-area-inset-top) 12px env(safe-area-inset-bottom)}.viewer-head,.viewer-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:54px}.viewer-stage{position:relative;flex:1;min-height:0;overflow:hidden;touch-action:none;display:grid;place-items:center}.viewer-stage img{max-width:100%;max-height:100%;object-fit:contain;transform-origin:center;will-change:transform;user-select:none;-webkit-user-drag:none}.final-screen{position:fixed;inset:0;z-index:30;background:#080b0e;display:flex;flex-direction:column;padding:calc(8px + env(safe-area-inset-top)) 10px calc(8px + env(safe-area-inset-bottom));overflow:hidden}.final-screen .canvas-wrap{flex:1;min-height:0;height:auto;margin:0;border:0;border-radius:0}.final-screen .canvas-wrap canvas{touch-action:none}.final-screen .final-controls{position:absolute;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));padding:10px 14px;background:#111820cc;border:1px solid #ffffff30;border-radius:14px;backdrop-filter:blur(8px)}.final-screen .final-controls .field{margin:0}.final-screen .final-heading{pointer-events:none;text-align:center;min-width:0}.final-top{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px}.final-top .right{justify-self:end}.final-top .left{justify-self:start}.final-title{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .info-button{border:0;background:transparent;color:var(--accent);font:700 20px system-ui;vertical-align:middle;padding:2px 4px;cursor:pointer}.identity-panel{margin-top:6px}.identity-installation{border-top:1px solid var(--line);margin-top:10px;padding-top:8px}.photo-section{margin:8px 0;padding:12px}.photo-section h2{font-size:17px;margin-bottom:8px}.collapsible-section summary{font-weight:700;cursor:pointer;padding:2px 0}.collapsible-content{padding-top:8px}.photo-info-backdrop{position:fixed;inset:0;z-index:70;display:grid;place-items:center;background:#0009;padding:18px}.photo-info-card{width:min(100%,390px);background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}.photo-info-card p{margin:8px 0 14px}.photo-info-card .btn{width:100%}
+    .alignment-page{padding-bottom:calc(118px + env(safe-area-inset-bottom))}.alignment-mode-buttons{display:grid;grid-template-columns:1fr 1fr;margin:8px 0}.alignment-mode-buttons .btn{padding-left:8px;padding-right:8px}.alignment-mode-buttons .btn.selected{background:var(--green);border-color:#369965}.alignment-auto{margin:8px 0}.alignment-auto .btn{width:100%}.alignment-manual summary{font-weight:700;cursor:pointer;padding:3px 0}.alignment-notes .btn{text-align:left;width:100%}.alignment-lock-bar{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#111820ed;border-top:1px solid var(--line);box-shadow:0 -5px 18px #0006}.alignment-lock-bar .btn{display:block;width:100%;max-width:900px;margin:0 auto}
+    @media(max-width:560px){main{padding:12px 10px calc(24px + env(safe-area-inset-bottom))}.grid2{grid-template-columns:1fr}.panel{padding:12px}.canvas-wrap.plan{height:55vh;min-height:235px}.canvas-wrap.wall{height:48vh;min-height:230px}.btn{font-size:14px;padding:10px 12px}.actions{gap:7px}.final-screen{padding-left:0;padding-right:0}.final-top{padding:0 8px}.final-screen .final-controls{left:8px;right:8px}}
+    .final-screen #final-gallery{display:grid;grid-template: minmax(0,1fr) / minmax(0,1fr);touch-action:none}
+    .final-detail{width:100%;height:100%;min-height:0;object-fit:contain;transform-origin:center;user-select:none;pointer-events:none}
+    .final-screen #overlay-controls{position:static;margin:6px 8px 0;padding:5px 10px}
+    .final-gallery-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px 0;color:var(--text)}
+    .final-gallery-actions .meta{white-space:nowrap;margin-left:auto}
+    .gallery-picker{color:var(--text);max-height:85dvh;overflow:auto}
+    .gallery-picker::backdrop{background:#0009}
+    /* Brand and layout */
+    :root {
+      --bg:#111820; --panel:#1D2731; --panel2:#27323D; --text:#F3F5F6;
+      --muted:#B2BDC7; --accent:#E4AD54; --positive:#73B9A1;
+      --line:#687888; --control:#344352; --red:#733D42; --ink:#14191F;
+    }
+    body{line-height:1.45}
+    main{padding-inline:max(12px,env(safe-area-inset-left)) max(12px,env(safe-area-inset-right))}
+    h1,h2,h3{overflow-wrap:anywhere;text-wrap:balance}
+    h1{font-size:clamp(1.4rem,5vw,1.9rem);letter-spacing:-.025em}
+    h2{line-height:1.25}
+    p{margin-bottom:10px}
+    .top{margin-bottom:12px}
+    .top>div,.row>div{min-width:0}
+    .wallview-brand{gap:12px;padding:4px 0 8px;margin-bottom:6px}
+    .wallview-brand img{display:block;flex:none;border-radius:12px}
+    .brand-copy{flex:1}
+    .wallview-brand h1{font-size:clamp(1.8rem,7vw,2.45rem);margin:0}
+    .brand-credit{color:var(--muted);font-size:.75rem;font-weight:650;letter-spacing:.045em}
+    footer,.meta,.hint{color:var(--muted)}
+    .panel,.project-card,.wall-card,.photo-modal-card,.photo-info-card{
+      background:var(--panel);border:1px solid #3E4D5C;
+    }
+    .panel{border-radius:12px;margin:10px 0}
+    .project-card,.wall-card{padding:12px}
+    #wall-list{margin-top:8px}
+    #wall-list .wall-card,.photo-card{background:var(--panel2)}
+    .photo-section{margin-block:8px}
+    .photo-section h2{color:var(--text)}
+    .photo-thumbs .photo-card .info{padding-right:15px}
+    .photo-card .info{min-width:0;overflow-wrap:anywhere}
+    .photo-card:has(.photo-delete) .info{padding-inline-end:40px}
+    .photo-thumbs .photo-card:has(.photo-delete) .info{padding-inline-end:28px}
+    .photo-delete{width:36px;height:36px;right:5px;top:5px}
+    .tag{background:var(--panel2);color:var(--muted);border:1px solid #566676}
+    .tag.locked{background:#1B3834;color:#9AD6C2;border-color:#43786A}
+    .empty{background:var(--panel);border-color:var(--line)}
+    .notice{background:#302A23}
+    .plan-dot-title{color:var(--text);text-decoration:underline;text-underline-offset:3px}
+    summary{min-height:44px;align-content:center}
+    .point-notes,.field input:not([type=range]){background:var(--panel2);color:var(--text)}
+    .field label{overflow-wrap:anywhere}
+    .btn,.file-button{
+      border:1px solid var(--line);border-radius:10px;background:var(--control);color:var(--text);
+      padding:9px 13px;min-height:48px;font:650 .9375rem/1.25 system-ui,sans-serif;text-align:center;
+      white-space:normal;overflow-wrap:anywhere;
+    }
+    .btn.small{padding:7px 11px;min-height:44px;font-size:.875rem}
+    .btn.subtle{background:transparent}
+    .btn.gold,.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+    .btn.danger{background:var(--red);border-color:#B07277}
+    .alignment-mode-buttons .btn.selected{background:var(--positive);border-color:var(--positive);color:var(--ink)}
+    #lock-alignment{background:var(--positive);border-color:var(--positive);color:var(--ink)}
+    .btn:focus-visible,.file-button:focus-within,summary:focus-visible,[tabindex]:focus-visible{
+      outline:2px solid var(--accent);outline-offset:2px;
+    }
+    input[type=range]{margin-inline:0;min-width:0}
+    .btn.plan-delete,.info-button{min-width:44px;min-height:44px;padding:0}
+    .btn.plan-delete{border-radius:50%}
+    .final-screen{background:#10171E}
+    .final-top{grid-template-columns:minmax(0,.9fr) minmax(0,1.12fr) minmax(0,1.4fr);gap:6px;max-width:45rem;width:100%;margin-inline:auto}
+    .final-top .left,.final-top .right{justify-self:stretch}
+    .final-top .btn{width:100%}
+    .final-title{white-space:normal;overflow-wrap:anywhere;text-overflow:clip;line-height:1.2}
+    .final-heading{padding-inline:8px}
+    .final-gallery-actions{padding-inline:8px;min-width:0}
+    .final-screen #overlay-controls{margin-top:4px}
+    .viewer-head strong{min-width:0;overflow-wrap:anywhere}
+    @media(max-width:560px){
+      .project-card>.row,.wall-card>.row{display:grid;grid-template-columns:minmax(0,1fr);gap:6px}
+      .project-card .compact-actions,.wall-card .compact-actions{margin:0;gap:6px}
+      .compact-actions>.btn{flex:0 1 auto;min-width:0}
+      .photo-thumbs .photo-card{align-items:flex-start;flex-direction:column}
+      .photo-thumbs .photo-card:has(.photo-delete) .info{padding-inline-end:0}
+      .final-top .btn,.final-gallery-actions .btn{padding-inline:6px;font-size:.8125rem}
+      .final-back-row{margin:0 8px 3px}
+      .final-screen #overlay-controls{padding-block:3px}
+      .alignment-mode-buttons{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+    .welcome-screen{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+      min-height:calc(100dvh - 24px - env(safe-area-inset-bottom));
+      max-width:32rem;margin:0 auto;padding:20px 12px;text-align:center;
+    }
+    .welcome-screen img{border-radius:14px}
+    .welcome-screen h1{margin:0;font-size:clamp(2rem,10vw,3.5rem);line-height:1.1;letter-spacing:.02em}
+    .welcome-screen p{margin:0}
+    .welcome-screen .welcome-tagline{color:var(--positive);font-size:clamp(1.15rem,5vw,1.5rem);font-weight:700}
+    .welcome-description{max-width:32ch}
+    .welcome-start{width:min(100%,17rem);min-height:56px;margin-block:8px}
+    .transfer-switch{
+      display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:48px;
+      padding-block:6px;margin-bottom:6px;color:var(--text);font-weight:650;cursor:pointer;
+    }
+    .transfer-switch input{
+      appearance:none;display:grid;align-items:center;flex:none;width:46px;height:30px;
+      margin:0;padding:3px;border:1px solid var(--line);border-radius:99px;background:var(--panel2);cursor:pointer;
+    }
+    .transfer-switch input::before{
+      content:'';width:22px;height:22px;border-radius:50%;background:var(--muted);
+    }
+    .transfer-switch input:checked{background:var(--positive);border-color:var(--positive)}
+    .transfer-switch input:checked::before{justify-self:end;background:var(--ink)}
+    .transfer-switch input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  </style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+<input id="import-input" class="hidden" type="file" accept=".json,application/json">
+<script>
+(() => {
+  'use strict';
+  const DB_NAME='wallview-archive', DB_VERSION=1, STORE='projects';
+  const app=document.getElementById('app');
+  const pendingDeletions=new Set();
+  const importInput=document.getElementById('import-input');
+  const state={page:'home',project:null,wallId:null,installationId:null,urls:[],bitmaps:[],addPoint:false,saveTimer:0};
+  const uid=()=>globalThis.crypto?.randomUUID?.()||('wv-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2));
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const fmtDate=v=>new Intl.DateTimeFormat('it-IT',{dateStyle:'medium'}).format(new Date(v||Date.now()));
+  function clearMedia(){for(const u of state.urls)URL.revokeObjectURL(u);state.urls=[];for(const b of state.bitmaps){try{b.close()}catch{}}state.bitmaps=[]}
+  function fileRef(file){return {blob:file,name:file.name||'immagine',type:file.type||'image/jpeg'}}
+  function imageURL(ref){const u=URL.createObjectURL(ref.blob);state.urls.push(u);return u}
+  function loadImage(ref){return new Promise((resolve,reject)=>{if(!ref?.blob)return reject(new Error('Fotografia non disponibile'));const img=new Image();const u=imageURL(ref);img.onload=()=>resolve(img);img.onerror=()=>reject(new Error('Impossibile leggere la fotografia'));img.src=u})}
+  function openDB(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const db=req.result;if(!db.objectStoreNames.contains(STORE))db.createObjectStore(STORE,{keyPath:'id'})};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error('Archivio non disponibile'))})}
+  async function allProjects(){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readonly'),req=tx.objectStore(STORE).getAll();req.onsuccess=()=>resolve(req.result.sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)));req.onerror=()=>reject(req.error)})}
+  async function getProject(id){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readonly'),req=tx.objectStore(STORE).get(id);req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+  async function saveProject(project=state.project){if(!project)return;project.schemaVersion=2;project.updatedAt=Date.now();const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).put(project);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||new Error('Salvataggio non riuscito'));tx.onabort=()=>reject(tx.error||new Error('Salvataggio interrotto'))})}
+  async function removeProjectRecord(id){const db=await openDB();return new Promise((resolve,reject)=>{const tx=db.transaction(STORE,'readwrite');tx.objectStore(STORE).delete(id);tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error||new Error('Eliminazione del progetto non riuscita'));tx.onabort=()=>reject(tx.error||new Error('Eliminazione del progetto interrotta'))})}
+  function scheduleSave(){clearTimeout(state.saveTimer);state.saveTimer=setTimeout(()=>saveProject().catch(showError),220)}
+  function flushSave(){clearTimeout(state.saveTimer);state.saveTimer=0;return saveProject()}
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&state.page==='editor')flushSave().catch(()=>{})});
+  window.addEventListener('pagehide',()=>{if(state.page==='editor')flushSave().catch(()=>{})});
+  function showError(err){alert('Operazione non riuscita. '+(err?.message||''))}
+  function wallById(id=state.wallId){return state.project?.walls?.find(w=>w.id===id)}
+  function installationById(id=state.installationId){return wallById()?.installations?.find(i=>i.id===id)}
+  function normalizeProjectData(project){let changed=project.schemaVersion!==2;if(!Array.isArray(project.walls))project.walls=[];for(const point of project.walls){if(!Array.isArray(point.installations)){point.installations=[{id:uid(),name:'Impianto 1',photoOpen:point.photoOpen||null,transform:point.transform||freshTransform(),opacity:point.opacity??.55,lockedAt:point.lockedAt||null,lockedTransform:point.lockedTransform||null}];delete point.photoOpen;delete point.transform;delete point.opacity;delete point.lockedAt;delete point.lockedTransform;changed=true}point.photoFinished=point.photoFinished||point.photoClosed||null;delete point.photoClosed;point.installations.forEach((installation,index)=>{if(!installation.id)installation.id=uid();if(!installation.name)installation.name=`Impianto ${index+1}`;if(!installation.transform)installation.transform=freshTransform();if(typeof installation.opacity!=='number')installation.opacity=.55;if(!Array.isArray(installation.extraPhotos))installation.extraPhotos=[]});if(!Array.isArray(point.extraPhotos))point.extraPhotos=[]}project.schemaVersion=2;return changed}
+  function button(id,label,cls=''){return `<button id="${id}" class="btn ${cls}">${label}</button>`}
+  function filePicker(id,label,accept='image/*'){return `<label class="file-button">${label}<input id="${id}" type="file" accept="${accept}"></label>`}
+  function cameraPicker(id,label){return `<label class="file-button">${label}<input id="${id}" type="file" accept="image/*" capture="environment"></label>`}
+  function backHeader(back,label,sub=''){return `<div class="top">${button(back,'← Indietro','small subtle')}<div style="flex:1"><h1>${label}</h1>${sub?`<div class="meta">${sub}</div>`:''}</div></div>`}
+
+  // One access decision for the UI and the backup entry points.
+  const projectTransferAccess=(()=>{
+    const key='stripwall.project-transfer.enabled';
+    let enabled=true;
+    try{enabled=localStorage.getItem(key)!=='off';}catch{}
+    return {
+      allowed:()=>enabled,
+      setAllowed(value){
+        localStorage.setItem(key,value?'on':'off');
+        enabled=value;
+      }
+    };
+  })();
+
+  function renderWelcome(){
+    clearMedia();
+    state.page='welcome';
+    app.innerHTML=`<section class="welcome-screen" aria-labelledby="welcome-title">
+      <img src="icon-192.png" width="64" height="64" alt="">
+      <h1 id="welcome-title">STRIPWALL</h1>
+      <p class="welcome-tagline">Vedi oltre la parete.</p>
+      <p class="welcome-description">Fotografa gli impianti prima di chiudere le pareti. Ritrovali quando ne hai bisogno, sovrapponendo le immagini con un semplice cursore.</p>
+      ${button('start-app','INIZIA →','primary welcome-start')}
+      <p class="brand-credit">by OWL•09 STUDIO</p>
+    </section>`;
+    document.getElementById('start-app').onclick=renderHome;
+  }
+
+  async function renderHome(){
+    clearMedia();
+    state.page='home';
+    state.project=null;
+    state.wallId=null;
+    state.addPoint=false;
+    app.innerHTML=`${backHeader('back-welcome','Progetti','STRIPWALL')}
+      <div class="panel"><div class="stack">${button('new-project','+ Nuovo progetto','primary')}${button('open-archive','Apri progetto')}</div></div>
+      <details class="panel tight"><summary>Impostazioni</summary>
+        <label class="transfer-switch"><span>Abilita importazione ed esportazione</span><input id="transfer-enabled" type="checkbox" role="switch"></label>
+        <p>Salva una copia dei progetti per conservarli o trasferirli su un altro telefono.</p>
+        <div class="field"><label for="copy-project-select">Progetto da esportare</label><select id="copy-project-select" class="btn"></select></div>
+        <div class="stack">${button('export-project','Esporta progetto','small')}${button('import-project','Importa progetto','small subtle')}</div>
+      </details>
+      <div id="home-summary"></div><footer>I progetti e le foto restano su questo dispositivo.</footer>`;
+    const toggle=document.getElementById('transfer-enabled');
+    const select=document.getElementById('copy-project-select');
+    const exportButton=document.getElementById('export-project');
+    const importButton=document.getElementById('import-project');
+    const summary=document.getElementById('home-summary');
+    let hasProjects=false;
+    function refreshTransferControls(){
+      const allowed=projectTransferAccess.allowed();
+      toggle.checked=allowed;
+      select.disabled=exportButton.disabled=!allowed||!hasProjects;
+      importButton.disabled=importInput.disabled=!allowed;
+    }
+    refreshTransferControls();
+    toggle.onchange=()=>{
+      try{projectTransferAccess.setAllowed(toggle.checked);}
+      catch(error){showError(error);}
+      finally{refreshTransferControls();}
+    };
+    document.getElementById('back-welcome').onclick=renderWelcome;
+    document.getElementById('new-project').onclick=createProject;
+    document.getElementById('open-archive').onclick=renderArchive;
+    importButton.onclick=()=>{if(projectTransferAccess.allowed())importInput.click();};
+    exportButton.onclick=async()=>{
+      if(!projectTransferAccess.allowed()||!select.value)return;
+      try{
+        const selected=await getProject(select.value);
+        if(selected)await exportProject(selected);
+      }catch(error){showError(error);}
+    };
+    try{
+      const list=await allProjects();
+      if(!select.isConnected)return;
+      hasProjects=list.length>0;
+      select.innerHTML=hasProjects?list.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join(''):'<option value="">Nessun progetto salvato</option>';
+      refreshTransferControls();
+      summary.innerHTML=hasProjects?`<div class="panel tight"><strong>${list.length} ${list.length===1?'progetto salvato':'progetti salvati'}</strong></div>`:'<div class="empty">Non hai ancora progetti salvati.</div>';
+    }catch(error){if(select.isConnected)showError(error);}
+  }
+
+  async function renderArchive(){clearMedia();state.page='archive';state.project=null;state.wallId=null;app.innerHTML=`${backHeader('back-home','Apri progetto')}<div class="actions">${button('new-project','+ Nuovo progetto','primary')}</div><div id="project-list" class="archive-list"></div>`;document.getElementById('back-home').onclick=renderHome;document.getElementById('new-project').onclick=createProject;
+    try{const projects=await allProjects();const list=document.getElementById('project-list');list.innerHTML=projects.length?projects.map(p=>`<article class="project-card"><div class="row"><div style="min-width:0"><h3>${esc(p.name)}</h3><div class="meta">Aggiornato ${fmtDate(p.updatedAt)} · ${p.walls?.length||0} pareti</div></div><div class="actions compact-actions"><button class="btn small" data-open-project="${esc(p.id)}">Apri progetto</button><button class="btn small danger" data-delete-project="${esc(p.id)}">Elimina progetto</button></div></div></article>`).join(''):`<div class="empty">Nessun progetto salvato. Crea un progetto o carica una copia da Impostazioni.</div>`;list.querySelectorAll('[data-open-project]').forEach(b=>b.onclick=()=>openProject(b.dataset.openProject));list.querySelectorAll('[data-delete-project]').forEach(b=>b.onclick=e=>{e.stopPropagation();deleteProject(b.dataset.deleteProject)})}catch(e){showError(e)}
+  }
+  async function deleteProject(id){const key='project:'+id;if(pendingDeletions.has(key))return;pendingDeletions.add(key);try{if(!await askDeleteConfirmation('Vuoi eliminare definitivamente questo progetto? Verranno cancellati la planimetria, i punti, gli impianti e tutte le fotografie.','Elimina definitivamente'))return;await removeProjectRecord(id);await renderArchive()}catch(e){showError(e)}finally{pendingDeletions.delete(key)}}  async function createProject(){const name=prompt('Nome del progetto (puoi cambiarlo in seguito):','Nuovo lavoro');if(name===null)return;const clean=name.trim();if(!clean){alert('Inserisci un nome per il progetto.');return}state.project={id:uid(),name:clean,createdAt:Date.now(),updatedAt:Date.now(),plan:null,viewport:{zoom:1,panX:0,panY:0},walls:[]};try{await saveProject();await renderProject()}catch(e){showError(e)}}
+  async function openProject(id){try{state.project=await getProject(id);if(!state.project)throw new Error('Progetto non trovato');if(normalizeProjectData(state.project))await saveProject();state.page='plan';await renderProject()}catch(e){showError(e)}}
+  async function renameProject(){const name=prompt('Nome del progetto:',state.project.name);if(name===null)return;const clean=name.trim();if(!clean){alert('Il nome non può essere vuoto.');return}state.project.name=clean;try{await saveProject();await renderProject()}catch(e){showError(e)}}
+
+  async function deleteWall(id){const p=state.project;if(!p)return;const index=p.walls.findIndex(w=>w.id===id);if(index<0)return;const key=`wall:${p.id}:${id}`;if(pendingDeletions.has(key))return;pendingDeletions.add(key);try{if(!await askDeleteConfirmation('Vuoi eliminare questo punto, tutti i suoi impianti e le fotografie associate?','Elimina definitivamente'))return;const removed=p.walls.splice(index,1)[0];try{await saveProject()}catch(e){p.walls.splice(index,0,removed);throw e}if(state.wallId===id){state.wallId=null;state.installationId=null}await renderProject()}catch(e){showError(e)}finally{pendingDeletions.delete(key)}}
+  async function deletePlan(){const p=state.project;if(!p?.plan)return;const warning=p.walls?.length?'Vuoi eliminare la planimetria? I punti, gli impianti e le fotografie resteranno, ma i riferimenti sulla planimetria potrebbero non essere pi\u00f9 validi.':'Vuoi eliminare la planimetria?';if(!await askDeleteConfirmation(warning,'Elimina'))return;const previous=p.plan,previousViewport=p.viewport;p.plan=null;p.viewport={zoom:1,panX:0,panY:0};try{await saveProject()}catch(e){p.plan=previous;p.viewport=previousViewport;showError(e);return}await renderProject()}
+  async function renderProject(){clearMedia();state.page='plan';state.addPoint=false;const p=state.project;p.viewport=p.viewport||{zoom:1,panX:0,panY:0};app.innerHTML=`${backHeader('back-archive',esc(p.name),`Creato ${fmtDate(p.createdAt)}`)}<div class="actions">${button('rename-project','Rinomina progetto','small')}</div><div class="row"><h2>Planimetria</h2></div><div id="plan-wrap" class="canvas-wrap plan"><canvas id="plan-canvas" aria-label="Planimetria con punti delle pareti"></canvas>${p.plan?'<button id="delete-plan" class="btn danger plan-delete" type="button" aria-label="Elimina planimetria">&times;</button>':''}</div><input id="plan-file" class="hidden" type="file" accept="image/*"><div class="actions">${button('add-point','+ Aggiungi punto','gold')}</div><div id="plan-hint" class="hint">${p.plan?'Tocca un punto per aprirlo. Per crearne uno, scegli «Aggiungi punto» e tocca la planimetria.':'Tocca il riquadro vuoto per caricare una planimetria.'}</div><details id="saved-walls" class="panel tight" open><summary style="font-weight:700;cursor:pointer;padding:4px">Pareti salvate</summary><div id="wall-list" class="stack"></div></details>`;
+    document.getElementById('back-archive').onclick=renderArchive;document.getElementById('rename-project').onclick=renameProject;const planInput=document.getElementById('plan-file');planInput.onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){alert('Scegli un\'immagine.');e.target.value='';return}if(p.plan&&!confirm('Sostituire la planimetria? I punti rimarranno nelle stesse coordinate relative.')){e.target.value='';return}const previous=p.plan;p.plan=fileRef(f);p.viewport={zoom:1,panX:0,panY:0};try{await saveProject();await renderProject()}catch(err){p.plan=previous;showError(err)}};document.getElementById('plan-canvas').onclick=()=>{if(!p.plan&&!state.addPoint)planInput.click()};if(p.plan)document.getElementById('delete-plan').onclick=deletePlan;
+    document.getElementById('add-point').onclick=()=>{if(!p.plan){planInput.click();return}state.addPoint=!state.addPoint;const b=document.getElementById('add-point'),wrap=document.getElementById('plan-wrap');b.textContent=state.addPoint?'Tocca la planimetria…':'+ Aggiungi punto';wrap.classList.toggle('adding',state.addPoint);document.getElementById('plan-hint').textContent=state.addPoint?'Tocca la posizione sulla planimetria, poi dai un nome al punto.':'Tocca un punto per aprirlo. Per crearne uno, scegli «Aggiungi punto» e tocca la planimetria.'};
+    const wl=document.getElementById('wall-list');wl.innerHTML=p.walls.length?p.walls.map(w=>`<article class="wall-card"><div class="row"><div style="min-width:0"><h3 class="plan-dot-title" data-wall-open="${esc(w.id)}">${esc(w.name)}</h3><div class="meta">${w.installations?.length>1?`${w.installations.length} impianti`:w.installations?.[0]?.lockedAt?'Allineamento bloccato':'Punto della planimetria'}</div></div><div class="actions compact-actions"><button class="btn small" data-wall="${esc(w.id)}">Apri</button><button class="btn small danger" data-delete-wall="${esc(w.id)}">Elimina punto</button></div></div></article>`).join(''):`<div class="empty">Qui trovi i punti che aggiungi alla planimetria.</div>`;wl.querySelectorAll('[data-wall]').forEach(b=>b.onclick=()=>openWall(b.dataset.wall));wl.querySelectorAll('[data-wall-open]').forEach(b=>b.onclick=()=>openWall(b.dataset.wallOpen));wl.querySelectorAll('[data-delete-wall]').forEach(b=>b.onclick=e=>{e.stopPropagation();deleteWall(b.dataset.deleteWall)});
+    const canvas=document.getElementById('plan-canvas'),wrap=document.getElementById('plan-wrap');let img=null;if(p.plan){try{img=await loadImage(p.plan)}catch(e){showError(e)}}let ctx,metrics,holdTimer=null,lastFreeTap=null;function size(){const r=canvas.getBoundingClientRect(),d=Math.max(1,Math.min(3,devicePixelRatio||1));canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));ctx=canvas.getContext('2d');ctx.setTransform(d,0,0,d,0,0);metrics={w:r.width,h:r.height,dpr:d};draw()}
+    function draw(){if(!ctx||!metrics)return;const {w,h}=metrics;ctx.clearRect(0,0,w,h);ctx.fillStyle='#202020';ctx.fillRect(0,0,w,h);if(!img){ctx.fillStyle='#c6d0d7';ctx.font='600 16px system-ui';ctx.textAlign='center';ctx.fillText('Tocca per caricare una planimetria',w/2,h/2);return}const base=Math.min(w/img.width,h/img.height),s=base*(p.viewport?.zoom||1),ox=w/2+(p.viewport?.panX||0)-img.width*s/2,oy=h/2+(p.viewport?.panY||0)-img.height*s/2;ctx.drawImage(img,ox,oy,img.width*s,img.height*s);for(const point of p.walls){const x=ox+point.x*img.width*s,y=oy+point.y*img.height*s;ctx.beginPath();ctx.fillStyle='#e7ae50';ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.arc(x,y,7,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#fff';ctx.font='600 13px system-ui';ctx.textAlign='left';ctx.textBaseline='middle';const label=point.name,tw=ctx.measureText(label).width;ctx.fillStyle='rgba(17,24,32,.85)';ctx.fillRect(x+10,y-12,tw+10,24);ctx.fillStyle='#fff';ctx.fillText(label,x+15,y)}}
+    function toCanvas(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+    function imagePoint(pos){const base=Math.min(metrics.w/img.width,metrics.h/img.height),s=base*(p.viewport?.zoom||1),ox=metrics.w/2+(p.viewport?.panX||0)-img.width*s/2,oy=metrics.h/2+(p.viewport?.panY||0)-img.height*s/2;return{x:clamp((pos.x-ox)/(img.width*s),0,1),y:clamp((pos.y-oy)/(img.height*s),0,1)}}
+    function hitPoint(pos){if(!img)return null;const base=Math.min(metrics.w/img.width,metrics.h/img.height),s=base*(p.viewport?.zoom||1),ox=metrics.w/2+(p.viewport?.panX||0)-img.width*s/2,oy=metrics.h/2+(p.viewport?.panY||0)-img.height*s/2;return p.walls.find(pt=>Math.hypot(pos.x-(ox+pt.x*img.width*s),pos.y-(oy+pt.y*img.height*s))<28)}
+    let pointers=new Map(),g=null;function clearHold(){if(holdTimer){clearTimeout(holdTimer);holdTimer=null}}function begin(suppressTap=false){clearHold();const a=[...pointers.values()];if(a.length===1){const point=!state.addPoint&&!suppressTap?hitPoint(a[0]):null;g={kind:state.addPoint?'add':point?'candidate':'pan',start:a[0],panX:p.viewport?.panX||0,panY:p.viewport?.panY||0,pointId:point?.id||null,original:point?{x:point.x,y:point.y}:null,moved:!!suppressTap};if(point&&!suppressTap)holdTimer=setTimeout(()=>{if(g?.kind==='candidate'&&g.pointId===point.id&&pointers.size===1)g.kind='move-point'},450)}else if(a.length>=2&&img){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2},base=Math.min(metrics.w/img.width,metrics.h/img.height),zoom=p.viewport?.zoom||1;g={kind:'pinch',mid,dist:Math.max(1,Math.hypot(v.x-u.x,v.y-u.y)),zoom,panX:p.viewport?.panX||0,panY:p.viewport?.panY||0,anchor:{x:(mid.x-metrics.w/2-(p.viewport?.panX||0))/(base*zoom)+img.width/2,y:(mid.y-metrics.h/2-(p.viewport?.panY||0))/(base*zoom)+img.height/2},moved:true}}}
+    function resetPlanView(){p.viewport={zoom:1,panX:0,panY:0};draw();scheduleSave()}
+    canvas.onpointerdown=e=>{if(!img||state.addPoint&&pointers.size===0){if(!img)return}e.preventDefault();canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,toCanvas(e));begin()};canvas.onpointermove=e=>{if(!pointers.has(e.pointerId)||!g)return;const pos=toCanvas(e);pointers.set(e.pointerId,pos);const a=[...pointers.values()];if(g.kind==='candidate'&&Math.hypot(pos.x-g.start.x,pos.y-g.start.y)>8){clearHold();g.kind='pan';g.moved=true}if(g.kind==='move-point'&&a.length===1){const point=p.walls.find(x=>x.id===g.pointId);if(point){const q=imagePoint(pos);point.x=q.x;point.y=q.y;draw()}}else if(g.kind==='pan'&&a.length===1&&!state.addPoint){const dx=pos.x-g.start.x,dy=pos.y-g.start.y;if(Math.hypot(dx,dy)>3)g.moved=true;p.viewport.panX=g.panX+dx;p.viewport.panY=g.panY+dy;draw()}else if(a.length>=2&&g.kind==='pinch'){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2},dist=Math.hypot(v.x-u.x,v.y-u.y),zoom=clamp(g.zoom*dist/g.dist,.5,8),base=Math.min(metrics.w/img.width,metrics.h/img.height);p.viewport.zoom=zoom;p.viewport.panX=mid.x-metrics.w/2-(g.anchor.x-img.width/2)*base*zoom;p.viewport.panY=mid.y-metrics.h/2-(g.anchor.y-img.height/2)*base*zoom;g.moved=true;draw()}};
+    canvas.onpointerup=e=>{const pos=toCanvas(e),was=g,remaining=pointers.size-1;clearHold();if(was?.kind==='add'&&remaining===0&&!was.moved){const q=imagePoint(pos),name=prompt('Nome del punto o della parete:','Parete');state.addPoint=false;wrap.classList.remove('adding');document.getElementById('add-point').textContent='+ Aggiungi punto';if(name?.trim()){const wall={id:uid(),name:name.trim(),x:q.x,y:q.y,notes:'',photoFinished:null,extraPhotos:[],installations:[newInstallation('Impianto 1')]};p.walls.push(wall);saveProject().then(()=>{state.wallId=wall.id;state.installationId=wall.installations[0].id;return renderFolder()}).catch(showError)}}else if(was?.kind==='candidate'&&remaining===0&&!was.moved){const point=p.walls.find(x=>x.id===was.pointId);if(point&&hitPoint(pos)?.id===point.id)openWall(point.id)}else if(was?.kind==='move-point'&&remaining===0){const point=p.walls.find(x=>x.id===was.pointId);if(point)saveProject().catch(err=>{point.x=was.original.x;point.y=was.original.y;draw();showError(err)})}else if(was?.kind==='pan'&&remaining===0&&!was.moved&&!state.addPoint){const found=hitPoint(pos);if(found)openWall(found.id);else{const now=Date.now();if(lastFreeTap&&now-lastFreeTap.time<350&&Math.hypot(pos.x-lastFreeTap.x,pos.y-lastFreeTap.y)<32){lastFreeTap=null;resetPlanView()}else lastFreeTap={time:now,x:pos.x,y:pos.y}}}pointers.delete(e.pointerId);g=null;if(pointers.size)begin(true);if(was?.kind==='pan'&&was.moved)scheduleSave()};canvas.onpointercancel=e=>{clearHold();const was=g;if(was?.kind==='move-point'){const point=p.walls.find(x=>x.id===was.pointId);if(point){point.x=was.original.x;point.y=was.original.y;draw()}}pointers.delete(e.pointerId);g=null;if(pointers.size)begin(true)};canvas.onwheel=e=>{if(!img)return;e.preventDefault();const pos=toCanvas(e),base=Math.min(metrics.w/img.width,metrics.h/img.height),old=p.viewport.zoom||1,zoom=clamp(old*(e.deltaY<0?1.12:.89),.5,8),anchor={x:(pos.x-metrics.w/2-p.viewport.panX)/(base*old)+img.width/2,y:(pos.y-metrics.h/2-p.viewport.panY)/(base*old)+img.height/2};p.viewport.zoom=zoom;p.viewport.panX=pos.x-metrics.w/2-(anchor.x-img.width/2)*base*zoom;p.viewport.panY=pos.y-metrics.h/2-(anchor.y-img.height/2)*base*zoom;draw();scheduleSave()};new ResizeObserver(size).observe(canvas);size();
+  }  async function openWall(id){state.wallId=id;state.addPoint=false;const point=wallById(id);if(!point)return renderProject();if(!Array.isArray(point.installations)||!point.installations.length){point.installations=[newInstallation('Impianto 1')];await saveProject()}if(point.installations.length===1)return openInstallation(point.installations[0].id);return renderInstallations()}
+  function newInstallation(name){return{id:uid(),name,photoOpen:null,transform:freshTransform(),opacity:.55,lockedAt:null,lockedTransform:null,extraPhotos:[]}}
+  function installationView(point,inst){if(inst?.lockedAt&&inst.photoOpen&&point?.photoFinished)return'final';if(inst?.photoOpen&&point?.photoFinished)return'editor';return'folder'}
+  async function openInstallation(id){state.installationId=id;const inst=installationById(id),point=wallById();if(!inst)return renderInstallations();const view=installationView(point,inst);if(view==='final')return renderFinal();if(view==='editor')return renderEditor();return renderFolder()}
+  async function renderInstallations(){clearMedia();state.page='installations';const point=wallById();if(!point)return renderProject();const cards=point.installations.map(inst=>`<article class="wall-card" data-manage-installation="${esc(inst.id)}"><div class="row"><div style="min-width:0"><h3>${esc(inst.name)}</h3><div class="meta">${installationView(point,inst)==='final'?'Allineamento bloccato':installationView(point,inst)==='editor'?'Allineamento da completare':'Foto da completare'}</div></div><div class="actions compact-actions">${button(`choose-${esc(inst.id)}`,installationView(point,inst)==='final'?'Apri risultato':'Apri impianto','small')}${button(`delete-install-${esc(inst.id)}`,'Elimina impianto','small danger')}</div></div>${inst.photoOpen||point.photoFinished?`<div class="photo-thumbs">${inst.photoOpen?photoCard('Foto impianto',inst.photoOpen,{deleteKind:'open'}):''}${point.photoFinished?photoCard('Foto finita condivisa',point.photoFinished,{deleteKind:'finished'}):''}</div>`:''}</article>`).join('');app.innerHTML=`${backHeader('back-plan',`${esc(point.name)} \u00b7 Scegli impianto`,esc(state.project.name))}<div class="stack">${cards||'<div class="empty">Questo punto non ha impianti.</div>'}</div>${!cards?`<div class="actions">${button('add-empty-installation','+ Aggiungi impianto','gold')}</div>`:''}`;document.getElementById('back-plan').onclick=renderProject;if(!cards)document.getElementById('add-empty-installation').onclick=addInstallation;point.installations.forEach(inst=>{document.getElementById(`choose-${inst.id}`).onclick=()=>openInstallation(inst.id);document.getElementById(`delete-install-${inst.id}`).onclick=()=>deleteInstallation(inst.id)});bindPhotoCards()}  async function deleteInstallation(id){const point=wallById();if(!point)return;const index=point.installations.findIndex(item=>item.id===id);if(index<0)return;const key=`installation:${point.id}:${id}`;if(pendingDeletions.has(key))return;pendingDeletions.add(key);try{if(!await askDeleteConfirmation('Vuoi eliminare questo impianto e tutte le sue fotografie?','Elimina definitivamente'))return;const removed=point.installations.splice(index,1)[0],oldSelected=state.installationId;if(oldSelected===id)state.installationId=point.installations[0]?.id||null;try{await saveProject()}catch(e){point.installations.splice(index,0,removed);state.installationId=oldSelected;throw e}await renderInstallations()}catch(e){showError(e)}finally{pendingDeletions.delete(key)}}  async function addInstallation(){const point=wallById();if(!point)return;if(point.installations?.length&&!point.photoFinished){alert('Completa e blocca il primo impianto con la foto finita.');return}const name=prompt('Nome dell’impianto:','Nuovo impianto');if(name===null)return;const clean=name.trim();if(!clean){alert('Inserisci un nome per l’impianto.');return}const inst=newInstallation(clean);point.installations.push(inst);state.installationId=inst.id;try{await saveProject();await renderFolder()}catch(e){showError(e)}}
+  async function renderFolder(){
+    clearMedia();state.page='folder';const point=wallById(),inst=installationById();if(!point||!inst)return renderProject();const canChangeFinished=!point.installations.some(item=>item.lockedAt),canAlign=!!(inst.photoOpen&&point.photoFinished);
+    app.innerHTML=`<div class="top">${button('back-point','← Indietro','small subtle')}<div style="flex:1"><h1>Foto di cantiere <button id="photo-info-open" class="info-button" type="button" aria-label="Informazioni su Foto di cantiere">ⓘ</button></h1></div></div>
+      <div class="panel tight identity-panel"><div class="row"><div><div class="meta">Punto</div><strong>${esc(point.name)}</strong></div>${button('rename-wall','Rinomina punto','small subtle')}</div><div class="identity-installation"><div class="meta">Impianto</div><strong>${esc(inst.name)}</strong></div></div>
+      <section class="panel photo-section"><h2>1. Foto impianto — Prima della chiusura</h2>${inst.photoOpen?photoCard('Foto impianto',inst.photoOpen,{deleteKind:'open'}):''}<div class="grid2">${cameraPicker('camera-open','Scatta foto')}${filePicker('photo-open','Carica foto')}</div></section>
+      <section class="panel photo-section"><h2>2. Foto finita — Dopo la chiusura</h2>${point.photoFinished?photoCard('Foto finita',point.photoFinished,{deleteKind:'finished'}):''}${canChangeFinished?`<div class="grid2">${cameraPicker('camera-finished','Scatta foto')}${filePicker('photo-finished','Carica foto')}</div>`:`<div class="notice">La foto finita è condivisa con un impianto già bloccato. Non puoi sostituirla.</div>`}</section>
+      <div class="actions">${button('open-alignment','Allinea le fotografie','primary')}</div>
+      <details class="panel tight collapsible-section"><summary>Altre fotografie</summary><div class="collapsible-content">${(point.extraPhotos||[]).map((im,i)=>photoCard(`Foto aggiuntiva ${i+1}`,im,{previewIndex:i,deleteKind:`extra:${i}`})).join('')}<div class="grid2">${cameraPicker('camera-extra','Scatta foto')}${filePicker('extra-photo','Carica foto')}</div></div></details>
+      <details class="panel tight collapsible-section"><summary>Note</summary><div class="collapsible-content"><label for="point-notes">Note del punto</label><textarea id="point-notes" class="point-notes" aria-label="Note del punto">${esc(point.notes)}</textarea></div></details>
+      <div id="photo-info-modal" class="photo-info-backdrop hidden"><section class="photo-info-card" role="dialog" aria-modal="true" aria-labelledby="photo-info-title"><h2 id="photo-info-title">Informazioni</h2><p>Fotografa l’impianto prima di coprirlo, poi fotografa la parete finita. STRIPWALL sovrappone le foto per mostrare dove passa l’impianto.</p>${button('photo-info-close','Chiudi','primary')}</section></div>`;
+    bindPhotoCards();document.getElementById('back-point').onclick=()=>point.installations.length>1?renderInstallations():renderProject();document.getElementById('rename-wall').onclick=async()=>{const n=prompt('Nome del punto:',point.name);if(n===null)return;if(!n.trim()){alert('Inserisci un nome.');return}point.name=n.trim();try{await saveProject();await renderFolder()}catch(e){showError(e)}};
+    const info=document.getElementById('photo-info-modal');document.getElementById('photo-info-open').onclick=()=>info.classList.remove('hidden');document.getElementById('photo-info-close').onclick=()=>info.classList.add('hidden');info.onpointerdown=e=>{if(e.target===info)info.classList.add('hidden')};
+    const alignButton=document.getElementById('open-alignment');alignButton.disabled=!canAlign;alignButton.onclick=()=>{if(canAlign)openInstallation(inst.id)};
+    const notes=document.getElementById('point-notes');notes.oninput=()=>{point.notes=notes.value;scheduleSave()};
+    for(const [id,key] of [['photo-open','photoOpen'],['camera-open','photoOpen']])document.getElementById(id).onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(inst.lockedAt){alert('Questo impianto è bloccato.');return}if(!f.type.startsWith('image/')){alert('Scegli un’immagine.');return}if(inst[key]&&!confirm('Vuoi sostituire la foto di questo impianto?'))return;inst[key]=fileRef(f);try{await saveProject();await openInstallation(inst.id)}catch(err){showError(err)}};
+    if(canChangeFinished)for(const [id] of [['photo-finished'],['camera-finished']])document.getElementById(id).onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){alert('Scegli un’immagine.');return}if(point.photoFinished&&!confirm('Vuoi sostituire la foto finita condivisa da tutti gli impianti del punto?'))return;point.photoFinished=fileRef(f);try{await saveProject();await openInstallation(inst.id)}catch(err){showError(err)}};
+    for(const id of ['extra-photo','camera-extra'])document.getElementById(id).onchange=async e=>{const f=e.target.files?.[0];if(!f)return;if(!f.type.startsWith('image/')){alert('Scegli un’immagine.');return}point.extraPhotos=point.extraPhotos||[];point.extraPhotos.push(fileRef(f));try{await saveProject();await renderFolder()}catch(err){showError(err)}};
+  }
+  function photoCard(title,ref,options={}){if(!ref)return `<div class="empty">${esc(title)}: mancante.</div>`;const open=Number.isInteger(options.previewIndex)?`data-photo-preview="${options.previewIndex}"`:'';const del=options.deleteKind?`<button class="photo-delete" type="button" aria-label="Elimina ${esc(title)}" data-photo-delete="${options.deleteKind}">×</button>`:'';return `<div class="photo-card ${open?'photo-openable':''}" ${open}><img src="${imageURL(ref)}" alt=""><div class="info"><strong>${esc(title)}</strong><span class="meta">${esc(ref.name||'Fotografia')}</span></div>${del}</div>`}
+  function askDeletePhoto(warning=''){return new Promise(resolve=>{const modal=document.createElement('div');modal.className='photo-modal';modal.innerHTML=`<div class="photo-modal-card" role="dialog" aria-modal="true"><h2>Vuoi eliminare questa foto?</h2>${warning?`<p class="notice">${esc(warning)}</p>`:''}<div class="photo-modal-actions"><button id="delete-cancel" class="btn subtle">Annulla</button><button id="delete-confirm" class="btn danger">Elimina</button></div></div>`;app.appendChild(modal);let finished=false;const finish=value=>{if(finished)return;finished=true;modal.remove();resolve(value)};modal.querySelector('#delete-cancel').onclick=()=>finish(false);modal.querySelector('#delete-confirm').onclick=e=>{e.currentTarget.disabled=true;finish(true)};modal.onclick=e=>{if(e.target===modal)finish(false)}})}
+  function askDeleteConfirmation(message,confirmLabel='Elimina definitivamente'){return new Promise(resolve=>{const modal=document.createElement('div');modal.className='photo-modal';modal.innerHTML=`<div class="photo-modal-card" role="dialog" aria-modal="true"><p>${esc(message)}</p><div class="photo-modal-actions"><button id="delete-cancel" class="btn subtle">Annulla</button><button id="delete-confirm" class="btn danger">${esc(confirmLabel)}</button></div></div>`;app.appendChild(modal);let finished=false;const finish=value=>{if(finished)return;finished=true;modal.remove();resolve(value)};modal.querySelector('#delete-cancel').onclick=()=>finish(false);modal.querySelector('#delete-confirm').onclick=e=>{e.currentTarget.disabled=true;finish(true)};modal.onclick=e=>{if(e.target===modal)finish(false)}})}
+  async function deletePhoto(kind){const point=wallById(),inst=installationById();if(!point)return;const key=`photo:${point.id}:${kind==='finished'?'shared':inst?.id||''}:${kind}`;if(pendingDeletions.has(key))return;pendingDeletions.add(key);try{let warning='';if(kind==='open'&&inst?.lockedAt)warning='Eliminando questa fotografia perderai anche l\u2019allineamento definitivo di questo impianto.';if(kind==='finished'&&point.installations.some(item=>item.lockedAt))warning='Gli allineamenti collegati alla foto finita non saranno pi\u00f9 utilizzabili. Le foto degli impianti resteranno salvate.';if(!await askDeletePhoto(warning))return;let rollback=()=>{};if(kind.startsWith('extra:')){const index=Number(kind.split(':')[1]);if(!Number.isInteger(index)||!point.extraPhotos?.[index])return;const removed=point.extraPhotos.splice(index,1)[0];rollback=()=>point.extraPhotos.splice(index,0,removed)}else if(kind==='open'){if(!inst?.photoOpen)return;const previous={photoOpen:inst.photoOpen,transform:inst.transform,lockedAt:inst.lockedAt,lockedTransform:inst.lockedTransform};inst.photoOpen=null;inst.transform=freshTransform();inst.lockedAt=null;inst.lockedTransform=null;rollback=()=>Object.assign(inst,previous)}else if(kind==='finished'){if(!point.photoFinished)return;const previousPhoto=point.photoFinished,previous=point.installations.map(item=>({item,transform:item.transform,lockedAt:item.lockedAt,lockedTransform:item.lockedTransform}));point.photoFinished=null;for(const item of point.installations){item.transform=freshTransform();item.lockedAt=null;item.lockedTransform=null}rollback=()=>{point.photoFinished=previousPhoto;previous.forEach(x=>Object.assign(x.item,{transform:x.transform,lockedAt:x.lockedAt,lockedTransform:x.lockedTransform}))}}else return;try{await saveProject()}catch(e){rollback();throw e}await renderFolder()}catch(e){showError(e)}finally{pendingDeletions.delete(key)}}  function bindPhotoCards(){app.querySelectorAll('[data-photo-preview]').forEach(card=>card.addEventListener('click',e=>{if(e.target.closest('[data-photo-delete]'))return;renderExtraViewer(Number(card.dataset.photoPreview))}));app.querySelectorAll('[data-photo-delete]').forEach(btn=>btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const owner=btn.closest('[data-manage-installation]')?.dataset.manageInstallation;if(owner)state.installationId=owner;deletePhoto(btn.dataset.photoDelete)}))}
+  async function renderExtraViewer(index){clearMedia();state.page='extra-viewer';const images=wallById()?.extraPhotos||[];if(!images.length)return renderFolder();let current=clamp(index,0,images.length-1),view={scale:1,x:0,y:0},pointers=new Map(),gesture=null;app.innerHTML=`<section class="photo-viewer"><div class="viewer-head"><strong id="viewer-title"></strong>${button('viewer-close','Chiudi','small')}</div><div id="viewer-stage" class="viewer-stage"><img id="viewer-image" alt="Foto aggiuntiva"></div><div class="viewer-foot"><button id="viewer-prev" class="btn small">‹ Precedente</button><span id="viewer-count" class="meta"></span><button id="viewer-next" class="btn small">Successiva ›</button></div></section>`;const stage=document.getElementById('viewer-stage'),image=document.getElementById('viewer-image');function draw(){image.style.transform=`translate(${view.x}px,${view.y}px) scale(${view.scale})`}function show(){const refs=wallById()?.extraPhotos||[];if(!refs.length)return renderFolder();current=clamp(current,0,refs.length-1);image.src=imageURL(refs[current]);document.getElementById('viewer-title').textContent=refs[current].name||`Foto aggiuntiva ${current+1}`;document.getElementById('viewer-count').textContent=`${current+1} / ${refs.length}`;document.getElementById('viewer-prev').disabled=current===0;document.getElementById('viewer-next').disabled=current===refs.length-1;view={scale:1,x:0,y:0};draw()}document.getElementById('viewer-close').onclick=renderFolder;document.getElementById('viewer-prev').onclick=()=>{current--;show()};document.getElementById('viewer-next').onclick=()=>{current++;show()};function pos(e){const r=stage.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}function begin(){const a=[...pointers.values()];if(a.length===1){const p=a[0];gesture={kind:'one',start:p,view:{...view},moved:false}}else if(a.length>=2){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2},r=stage.getBoundingClientRect();gesture={kind:'pinch',dist:Math.max(1,Math.hypot(v.x-u.x,v.y-u.y)),scale:view.scale,anchor:{x:(mid.x-r.width/2-view.x)/view.scale,y:(mid.y-r.height/2-view.y)/view.scale},moved:false}}}stage.onpointerdown=e=>{e.preventDefault();stage.setPointerCapture(e.pointerId);pointers.set(e.pointerId,pos(e));begin()};stage.onpointermove=e=>{if(!pointers.has(e.pointerId)||!gesture)return;const p=pos(e);pointers.set(e.pointerId,p);const a=[...pointers.values()],r=stage.getBoundingClientRect();if(gesture.kind==='one'&&a.length===1){const dx=p.x-gesture.start.x,dy=p.y-gesture.start.y;if(Math.hypot(dx,dy)>3)gesture.moved=true;if(gesture.view.scale>1.02){view.x=gesture.view.x+dx;view.y=gesture.view.y+dy;draw()}}else if(a.length>=2&&gesture.kind==='pinch'){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2},dist=Math.hypot(v.x-u.x,v.y-u.y);view.scale=clamp(gesture.scale*dist/gesture.dist,1,8);view.x=mid.x-r.width/2-gesture.anchor.x*view.scale;view.y=mid.y-r.height/2-gesture.anchor.y*view.scale;gesture.moved=true;draw()}};stage.onpointerup=e=>{const was=gesture;const end=pos(e);pointers.delete(e.pointerId);if(was?.kind==='one'&&was.view.scale<=1.02&&Math.abs(end.x-was.start.x)>55){const delta=end.x-was.start.x;if(delta<0&&current<images.length-1)current++;else if(delta>0&&current>0)current--;show()}gesture=null;if(pointers.size)begin()};stage.onpointercancel=e=>{pointers.delete(e.pointerId);gesture=null;if(pointers.size)begin()};show()}  function metricsFor(canvas,bg,fg){const r=canvas.getBoundingClientRect(),d=Math.max(1,Math.min(3,devicePixelRatio||1));canvas.width=Math.max(1,Math.round(r.width*d));canvas.height=Math.max(1,Math.round(r.height*d));const ctx=canvas.getContext('2d');ctx.setTransform(d,0,0,d,0,0);const bgFit=Math.min(r.width/bg.width,r.height/bg.height),bgDisplayW=bg.width*bgFit,bgDisplayH=bg.height*bgFit,baseFgScale=bgFit*Math.min(bg.width/fg.width,bg.height/fg.height);return{ctx,w:r.width,h:r.height,bgFit,bgDisplayW,bgDisplayH,baseFgScale}}
+  function drawComposite(canvas,bg,fg,transform,opacity,view={scale:1,x:0,y:0}){if(!bg||!fg)return null;const m=metricsFor(canvas,bg,fg),{ctx,w,h,bgFit,bgDisplayW,bgDisplayH,baseFgScale}=m;ctx.clearRect(0,0,w,h);ctx.fillStyle='#141a20';ctx.fillRect(0,0,w,h);ctx.save();ctx.translate(w/2+view.x,h/2+view.y);ctx.scale(view.scale,view.scale);ctx.translate(-w/2,-h/2);ctx.drawImage(bg,w/2-bgDisplayW/2,h/2-bgDisplayH/2,bgDisplayW,bgDisplayH);const cx=w/2+transform.cx*bgDisplayW,cy=h/2+transform.cy*bgDisplayH;ctx.save();ctx.globalAlpha=opacity;ctx.translate(cx,cy);ctx.rotate(transform.rotation);const s=baseFgScale*transform.scale;ctx.scale(s,s);ctx.drawImage(fg,-fg.width/2,-fg.height/2);ctx.restore();ctx.restore();return m}
+  function bindPanZoom(canvas,view,draw){let pointers=new Map(),gesture=null;function pos(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}function begin(){const a=[...pointers.values()],r=canvas.getBoundingClientRect();if(a.length===1)gesture={kind:'one',start:a[0],view:{...view}};else if(a.length>=2){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2};gesture={kind:'pinch',dist:Math.max(1,Math.hypot(v.x-u.x,v.y-u.y)),scale:view.scale,anchor:{x:(mid.x-r.width/2-view.x)/view.scale,y:(mid.y-r.height/2-view.y)/view.scale}}}}canvas.onpointerdown=e=>{e.preventDefault();canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,pos(e));begin()};canvas.onpointermove=e=>{if(!pointers.has(e.pointerId)||!gesture)return;const p=pos(e);pointers.set(e.pointerId,p);const a=[...pointers.values()],r=canvas.getBoundingClientRect();if(gesture.kind==='one'&&a.length===1){view.x=gesture.view.x+p.x-gesture.start.x;view.y=gesture.view.y+p.y-gesture.start.y;draw()}else if(a.length>=2&&gesture.kind==='pinch'){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2},distance=Math.hypot(v.x-u.x,v.y-u.y);view.scale=clamp(gesture.scale*distance/gesture.dist,1,8);view.x=mid.x-r.width/2-gesture.anchor.x*view.scale;view.y=mid.y-r.height/2-gesture.anchor.y*view.scale;draw()}};canvas.onpointerup=e=>{pointers.delete(e.pointerId);gesture=null;if(pointers.size)begin()};canvas.onpointercancel=e=>{pointers.delete(e.pointerId);gesture=null;if(pointers.size)begin()}}
+  const freshTransform=()=>({cx:0,cy:0,scale:1,rotation:0});
+  function clipImageRegion(rect,img){const x=Math.max(0,Math.floor(rect.x)),y=Math.max(0,Math.floor(rect.y)),right=Math.min(img.width,Math.ceil(rect.x+rect.w)),bottom=Math.min(img.height,Math.ceil(rect.y+rect.h));return{x,y,w:right-x,h:bottom-y}}
+  function imageRegionsAtViewport(canvas,bg,fg,view,transform,m){const left=(0-m.w/2-view.x)/view.scale+m.w/2,top=(0-m.h/2-view.y)/view.scale+m.h/2,right=(m.w-m.w/2-view.x)/view.scale+m.w/2,bottom=(m.h-m.h/2-view.y)/view.scale+m.h/2,bgX=m.w/2-m.bgDisplayW/2,bgY=m.h/2-m.bgDisplayH/2,bgRect=clipImageRegion({x:(left-bgX)/m.bgFit,y:(top-bgY)/m.bgFit,w:(right-left)/m.bgFit,h:(bottom-top)/m.bgFit},bg),scale=m.baseFgScale*transform.scale,cx=m.w/2+transform.cx*m.bgDisplayW,cy=m.h/2+transform.cy*m.bgDisplayH,cos=Math.cos(transform.rotation),sin=Math.sin(transform.rotation),corners=[[left,top],[right,top],[left,bottom],[right,bottom]].map(([x,y])=>{const dx=x-cx,dy=y-cy;return{x:fg.width/2+(cos*dx+sin*dy)/scale,y:fg.height/2+(-sin*dx+cos*dy)/scale}}),xs=corners.map(p=>p.x),ys=corners.map(p=>p.y),fgRect=clipImageRegion({x:Math.min(...xs),y:Math.min(...ys),w:Math.max(...xs)-Math.min(...xs),h:Math.max(...ys)-Math.min(...ys)},fg);if(bgRect.w<48||bgRect.h<48||fgRect.w<48||fgRect.h<48)throw new Error('La zona visibile è troppo piccola. Ingrandisci e centra meglio il dettaglio.');return{bg:bgRect,fg:fgRect}}
+  async function renderEditor(){
+    clearMedia();state.page='editor';const point=wallById(),w=installationById();if(!point||!w||!w.photoOpen||!point.photoFinished)return renderFolder();if(w.lockedAt)return renderFinal();w.transform=w.transform||freshTransform();const view={scale:1,x:0,y:0};let mode=null, manualRevision=0, adjustmentActive=false;
+    app.innerHTML=`<div class="alignment-page">${backHeader('back-folder','Allineamento',`${esc(point.name)} · ${esc(w.name)}`)}
+      <div class="actions alignment-auto">${button('auto-align','Allinea automaticamente','gold')}</div>
+      <div class="actions alignment-mode-buttons"><button id="mode-adjust" class="btn" type="button" aria-pressed="false">Regola impianto</button><button id="mode-explore" class="btn" type="button" aria-pressed="false">Esplora foto</button></div>
+      <div class="canvas-wrap wall"><canvas id="wall-canvas" aria-label="Foto impianto sovrapposta alla foto finita"></canvas></div>
+      <div class="panel"><div class="field"><div class="range-line"><label for="opacity">Trasparenza foto impianto</label><strong id="opacity-value">${Math.round((w.opacity??.55)*100)}%</strong></div><input id="opacity" type="range" min="0" max="100" value="${Math.round((w.opacity??.55)*100)}"></div></div>
+      <details class="panel tight alignment-manual"><summary>Regolazione manuale</summary><div class="collapsible-content"><div class="field"><div class="range-line"><label for="scale">Dimensione impianto</label><strong id="scale-value">${Math.round(w.transform.scale*100)}%</strong></div><input id="scale" type="range" min="10" max="300" value="${Math.round(w.transform.scale*100)}"></div><div class="field"><div class="range-line"><label for="rotation">Rotazione impianto</label><strong id="rotation-value">${Math.round(w.transform.rotation*180/Math.PI)}°</strong></div><input id="rotation" type="range" min="-180" max="180" value="${Math.round(w.transform.rotation*180/Math.PI)}"></div></div></details>
+      <section class="panel alignment-notes"><button id="notes-toggle" class="btn subtle" type="button">${point.notes?.trim()?'Visualizza o modifica le note':'Aggiungi note'}</button><div id="notes-field" class="field hidden"><label for="alignment-notes-text">Note del punto</label><textarea id="alignment-notes-text" class="point-notes" aria-label="Note del punto">${esc(point.notes||'')}</textarea></div></section>
+      <div class="alignment-lock-bar">${button('lock-alignment','Conferma e blocca','primary')}</div></div>`;
+    const canvas=document.getElementById('wall-canvas');let bg,fg;try{[fg,bg]=await Promise.all([loadImage(w.photoOpen),loadImage(point.photoFinished)])}catch(e){showError(e);return renderFolder()}let m;function draw(){m=drawComposite(canvas,bg,fg,w.transform,w.opacity??.55,view)}new ResizeObserver(draw).observe(canvas);draw();
+    const op=document.getElementById('opacity'),sc=document.getElementById('scale'),ro=document.getElementById('rotation');op.oninput=()=>{w.opacity=+op.value/100;document.getElementById('opacity-value').textContent=op.value+'%';draw();scheduleSave()};sc.oninput=()=>{manualRevision++;w.transform.scale=+sc.value/100;document.getElementById('scale-value').textContent=sc.value+'%';draw();scheduleSave()};ro.oninput=()=>{manualRevision++;w.transform.rotation=+ro.value*Math.PI/180;document.getElementById('rotation-value').textContent=ro.value+'°';draw();scheduleSave()};
+    function setMode(next){if(mode===next)return;mode=next;adjustmentActive=false;const adjusting=mode==='adjust';const adjustButton=document.getElementById('mode-adjust'),exploreButton=document.getElementById('mode-explore');adjustButton.classList.toggle('selected',adjusting);adjustButton.setAttribute('aria-pressed',String(adjusting));exploreButton.classList.toggle('selected',!adjusting);exploreButton.setAttribute('aria-pressed',String(!adjusting));sc.disabled=!adjusting;ro.disabled=!adjusting;canvas.onpointerdown=null;canvas.onpointermove=null;canvas.onpointerup=null;canvas.onpointercancel=null;if(adjusting)bindAdjustment();else bindPanZoom(canvas,view,draw)}
+    function bindAdjustment(){let pointers=new Map(),gesture=null;function pos(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}function begin(){const a=[...pointers.values()];if(a.length===1)gesture={kind:'one',start:a[0],transform:{...w.transform},moved:false};else if(a.length>=2){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2};gesture={kind:'pinch',mid,dist:Math.max(1,Math.hypot(v.x-u.x,v.y-u.y)),angle:Math.atan2(v.y-u.y,v.x-u.x),transform:{...w.transform},center:{x:canvas.clientWidth/2+view.x+view.scale*w.transform.cx*m.bgDisplayW,y:canvas.clientHeight/2+view.y+view.scale*w.transform.cy*m.bgDisplayH},moved:false}}}canvas.onpointerdown=e=>{e.preventDefault();canvas.setPointerCapture(e.pointerId);pointers.set(e.pointerId,pos(e));adjustmentActive=true;manualRevision++;begin()};canvas.onpointermove=e=>{if(!pointers.has(e.pointerId)||!gesture)return;const p=pos(e);pointers.set(e.pointerId,p);manualRevision++;const a=[...pointers.values()];if(gesture.kind==='one'&&a.length===1){const dx=p.x-gesture.start.x,dy=p.y-gesture.start.y;if(Math.hypot(dx,dy)>2)gesture.moved=true;w.transform.cx=gesture.transform.cx+dx/Math.max(1,m.bgDisplayW*view.scale);w.transform.cy=gesture.transform.cy+dy/Math.max(1,m.bgDisplayH*view.scale);draw()}else if(a.length>=2&&gesture.kind==='pinch'){const [u,v]=a,mid={x:(u.x+v.x)/2,y:(u.y+v.y)/2},d=Math.max(1,Math.hypot(v.x-u.x,v.y-u.y)),angle=Math.atan2(v.y-u.y,v.x-u.x),ratio=d/gesture.dist,da=angle-gesture.angle;w.transform.scale=clamp(gesture.transform.scale*ratio,.1,3);w.transform.rotation=gesture.transform.rotation+da;const dx=gesture.center.x-gesture.mid.x,dy=gesture.center.y-gesture.mid.y,k=ratio,c=Math.cos(da),s=Math.sin(da),cx=mid.x+k*(c*dx-s*dy),cy=mid.y+k*(s*dx+c*dy);w.transform.cx=(cx-canvas.clientWidth/2-view.x)/(m.bgDisplayW*view.scale);w.transform.cy=(cy-canvas.clientHeight/2-view.y)/(m.bgDisplayH*view.scale);sc.value=Math.round(w.transform.scale*100);ro.value=clamp(Math.round(w.transform.rotation*180/Math.PI),-180,180);document.getElementById('scale-value').textContent=sc.value+'%';document.getElementById('rotation-value').textContent=Math.round(w.transform.rotation*180/Math.PI)+'°';gesture.moved=true;draw()}};canvas.onpointerup=e=>{pointers.delete(e.pointerId);adjustmentActive=pointers.size>0;if(gesture?.moved)scheduleSave();gesture=null;if(pointers.size)begin()};canvas.onpointercancel=e=>{pointers.delete(e.pointerId);adjustmentActive=pointers.size>0;gesture=null;if(pointers.size)begin()}}
+    document.getElementById('mode-adjust').onclick=()=>setMode('adjust');document.getElementById('mode-explore').onclick=()=>setMode('explore');setMode('explore');document.getElementById('back-folder').onclick=async()=>{manualRevision++;try{await flushSave()}catch(e){showError(e);return}await renderFolder()};
+    document.getElementById('notes-toggle').onclick=()=>{const field=document.getElementById('notes-field');field.classList.toggle('hidden');document.getElementById('notes-toggle').textContent=field.classList.contains('hidden')?(point.notes?.trim()?'Visualizza o modifica le note':'Aggiungi note'):'Chiudi le note'};const note=document.getElementById('alignment-notes-text');note.oninput=()=>{point.notes=note.value;scheduleSave()};
+    document.getElementById('lock-alignment').onclick=async()=>{if(!confirm('Vuoi bloccare l’allineamento? Una volta confermato, non potrai più spostare le foto.'))return;manualRevision++;const previousLockedAt=w.lockedAt,previousLockedTransform=w.lockedTransform;w.lockedTransform={...w.transform};w.lockedAt=Date.now();clearTimeout(state.saveTimer);try{await saveProject();await renderFinal()}catch(e){w.lockedAt=previousLockedAt;w.lockedTransform=previousLockedTransform;showError(e)}};
+    document.getElementById('auto-align').onclick=async e=>{
+      const b=e.currentTarget;
+      if(b.disabled||adjustmentActive||w.lockedAt)return;
+      const revision=manualRevision;
+      const isCurrent=()=>state.page==='editor'&&document.getElementById('wall-canvas')===canvas&&installationById()===w&&!w.lockedAt&&!adjustmentActive&&manualRevision===revision;
+      document.getElementById('auto-align-notice')?.remove();
+      b.disabled=true;
+      b.textContent='Ricerca dei riferimenti…';
+      try{
+        await loadCV();
+        if(!isCurrent())return;
+        const {_quality,...transform}=autoAlignImages(fg,bg);
+        if(!_quality.usable)throw new UnreliableAlignment();
+        w.transform=transform;
+        sc.value=Math.round(transform.scale*100);
+        ro.value=Math.round(transform.rotation*180/Math.PI);
+        document.getElementById('scale-value').textContent=sc.value+'%';
+        document.getElementById('rotation-value').textContent=ro.value+'°';
+        draw();
+        await saveProject();
+        if(!isCurrent())return;
+        if(_quality.reliable){
+          alert('Controlla la sovrapposizione sull’intera parete. Conferma solo se il risultato è corretto.');
+        }else{
+          const notice=document.createElement('div');
+          notice.id='auto-align-notice';
+          notice.className='hint';
+          notice.setAttribute('role','status');
+          b.parentElement.after(notice);
+          notice.textContent='Allineamento approssimativo. Controlla la sovrapposizione e correggila se serve.';
+        }
+      }catch(err){
+        if(!isCurrent())return;
+        if(err instanceof UnreliableAlignment)alert('L’allineamento automatico non è affidabile. Puoi regolare le foto a mano.');
+        else showError(err);
+      }finally{
+        b.disabled=false;
+        b.textContent='Allinea automaticamente';
+      }
+    };
+  }
+  async function renderFinal(){
+    clearMedia();
+    state.page='final';
+    const project=state.project,point=wallById(),installation=installationById();
+    if(!point||!installation?.lockedAt||!installation.photoOpen||!point.photoFinished)return renderFolder();
+
+    const transform=installation.lockedTransform||installation.transform||freshTransform();
+    const photos=installation.extraPhotos??(installation.extraPhotos=[]);
+    const overlayView={scale:1,x:0,y:0}, photoView={scale:1,x:0,y:0};
+    let index=0,busy=false,detailURL;
+    app.innerHTML=`<section class="final-screen">
+      <header class="final-top"><div class="left">${button('back-plan','Progetto','small subtle')}</div>${button('menu-installations','Menù impianti','small subtle')}<div class="right">${button('add-installation','+ Aggiungi impianto','small gold')}</div></header>
+      ${point.installations.length>=2?`<div class="final-back-row">${button('back-installations','&#8592; Indietro','small subtle')}</div>`:''}
+      <div class="final-heading"><div class="final-title">${esc(installation.name)}</div><div class="meta">${esc(point.name)} · Visualizzazione definitiva</div></div>
+      <div class="tag locked" style="align-self:center;margin:5px 0 8px">Allineamento bloccato · ${fmtDate(installation.lockedAt)}</div>
+      <div id="final-gallery" class="canvas-wrap final-canvas-wrap" tabindex="0" role="region" aria-label="Galleria dell’impianto">
+        <canvas id="final-canvas" aria-label="Visualizzazione definitiva"></canvas>
+        <img id="final-detail" class="final-detail hidden" alt="" draggable="false">
+      </div>
+      <div id="overlay-controls" class="final-controls"><div class="field"><div class="range-line"><label for="final-opacity">Trasparenza foto impianto</label><strong id="final-opacity-value">${Math.round((installation.opacity??.55)*100)}%</strong></div><input id="final-opacity" type="range" min="0" max="100" value="${Math.round((installation.opacity??.55)*100)}" aria-label="Trasparenza tra foto finita e foto impianto"></div></div>
+      <footer class="final-gallery-actions">
+        ${button('gallery-add','+ Aggiungi foto','small gold')}
+        <span id="gallery-counter" class="meta" aria-live="polite"></span>
+        <button type="button" id="gallery-delete" class="btn small subtle hidden">Elimina foto</button>
+      </footer>
+      <dialog id="gallery-picker" class="photo-modal-card gallery-picker" aria-labelledby="gallery-picker-title">
+        <h2 id="gallery-picker-title">Aggiungi foto</h2>
+        <div class="stack">
+          ${cameraPicker('gallery-camera','Scatta foto')}
+          <label class="file-button">Scegli dalla galleria<input id="gallery-files" type="file" accept="image/*" multiple></label>
+          <form method="dialog"><button class="btn small subtle">Annulla</button></form>
+        </div>
+      </dialog>
+    </section>`;
+    const get=id=>document.getElementById(id);
+    get('back-plan').onclick=renderProject;
+    if(point.installations.length>=2)get('back-installations').onclick=renderInstallations;
+    get('add-installation').onclick=addInstallation;
+    get('menu-installations').onclick=renderInstallations;
+    const stage=get('final-gallery'),canvas=get('final-canvas'),detail=get('final-detail');
+    const controls=get('overlay-controls'),counter=get('gallery-counter');
+    const add=get('gallery-add'),remove=get('gallery-delete'),picker=get('gallery-picker');
+    const opacity=get('final-opacity');
+    function stillOpen(){
+      return state.project===project&&installationById()===installation&&get('final-gallery')===stage;
+    }
+
+    let bg,fg;
+    try{
+      [fg,bg]=await Promise.all([loadImage(installation.photoOpen),loadImage(point.photoFinished)]);
+    }catch(error){
+      if(stillOpen()){showError(error);return renderProject();}
+      return;
+    }
+    if(!stillOpen())return;
+
+    function draw(){
+      if(index===0)drawComposite(canvas,bg,fg,transform,installation.opacity??.55,overlayView);
+      else detail.style.transform=`translate(${photoView.x}px,${photoView.y}px) scale(${photoView.scale})`;
+    }
+    function showSlide(next,animate=false){
+      index=clamp(next,0,photos.length);
+      const detailPhoto=index>0?photos[index-1]:null;
+      if(detailURL){
+        URL.revokeObjectURL(detailURL);
+        state.urls=state.urls.filter(url=>url!==detailURL);
+        detailURL=undefined;
+      }
+      Object.assign(photoView,{scale:1,x:0,y:0});
+      canvas.classList.toggle('hidden',!!detailPhoto);
+      controls.classList.toggle('hidden',!!detailPhoto);
+      remove.classList.toggle('hidden',!detailPhoto);
+      detail.classList.toggle('hidden',!detailPhoto);
+      if(detailPhoto){
+        detailURL=imageURL(detailPhoto);
+        detail.src=detailURL;
+        detail.alt=`Foto di dettaglio ${index}`;
+      }else detail.removeAttribute('src');
+      counter.textContent=`${index+1} / ${photos.length+1}`;
+      draw();
+      if(animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches)
+        (detailPhoto?detail:canvas).animate([{opacity:.55},{opacity:1}],{duration:150});
+    }
+    function step(direction){
+      const next=index+direction;
+      if(!busy&&next>=0&&next<=photos.length)showSlide(next,true);
+    }
+    const observer=new ResizeObserver(()=>{
+      if(!stillOpen()){observer.disconnect();return;}
+      draw();
+    });
+    observer.observe(stage);
+    showSlide(0);
+    bindFinalGalleryGestures(stage,()=>index===0?overlayView:photoView,()=>photos.length>0,draw,step);
+    stage.onkeydown=event=>{
+      if(event.key!=='ArrowRight'&&event.key!=='ArrowLeft')return;
+      event.preventDefault();
+      step(event.key==='ArrowRight'?1:-1);
+    };
+    opacity.oninput=()=>{
+      installation.opacity=+opacity.value/100;
+      get('final-opacity-value').textContent=opacity.value+'%';
+      draw();
+      scheduleSave();
+    };
+
+    function setBusy(value){busy=value;add.disabled=value;remove.disabled=value;}
+    add.onclick=()=>{if(!busy)picker.showModal();};
+    for(const id of ['gallery-camera','gallery-files']){
+      get(id).onchange=async event=>{
+        const images=Array.from(event.target.files??[]);
+        event.target.value='';
+        if(!images.length||busy||!stillOpen())return;
+        picker.close();
+        if(images.some(file=>!file.type.startsWith('image/'))){
+          alert('Scegli solo foto.');
+          return;
+        }
+        const first=photos.length;
+        setBusy(true);
+        photos.push(...images.map(fileRef));
+        try{
+          await saveProject(project);
+          if(stillOpen())showSlide(first+1);
+        }catch(error){
+          photos.splice(first,images.length);
+          if(stillOpen())showError(error);
+        }finally{setBusy(false);}
+      };
+    }
+    remove.onclick=async()=>{
+      if(busy||index===0)return;
+      const selected=index-1;
+      setBusy(true);
+      try{
+        if(!await askDeletePhoto()||!stillOpen())return;
+        const [deleted]=photos.splice(selected,1);
+        try{await saveProject(project);}
+        catch(error){photos.splice(selected,0,deleted);throw error;}
+        if(stillOpen()){
+          showSlide(Math.min(selected+1,photos.length));
+          if(index===0)stage.focus();
+        }
+      }catch(error){if(stillOpen())showError(error);}
+      finally{setBusy(false);}
+    };
+  }
+
+  function bindFinalGalleryGestures(stage,currentView,hasGallery,draw,step){
+    const pointers=new Map();
+    let gesture=null,usedPinch=false;
+    function position(event){
+      const bounds=stage.getBoundingClientRect();
+      return {x:event.clientX-bounds.left,y:event.clientY-bounds.top};
+    }
+    function begin(){
+      const [a,b]=pointers.values();
+      const view=currentView();
+      if(!a){gesture=null;return;}
+      if(!b){gesture={start:a,snapshot:{...view},swipe:!usedPinch&&hasGallery()&&view.scale===1};return;}
+      usedPinch=true;
+      const midX=(a.x+b.x)/2-stage.clientWidth/2,midY=(a.y+b.y)/2-stage.clientHeight/2;
+      gesture={distance:Math.max(1,Math.hypot(b.x-a.x,b.y-a.y)),scale:view.scale,
+        anchorX:(midX-view.x)/view.scale,anchorY:(midY-view.y)/view.scale};
+    }
+    stage.onpointerdown=event=>{
+      if(pointers.size>=2||event.button!==0)return;
+      event.preventDefault();
+      if(!pointers.size)usedPinch=false;
+      stage.setPointerCapture(event.pointerId);
+      pointers.set(event.pointerId,position(event));
+      begin();
+    };
+    stage.onpointermove=event=>{
+      if(!pointers.has(event.pointerId)||!gesture)return;
+      pointers.set(event.pointerId,position(event));
+      const [a,b]=pointers.values();
+      const view=currentView();
+      if(b){
+        const midX=(a.x+b.x)/2-stage.clientWidth/2,midY=(a.y+b.y)/2-stage.clientHeight/2;
+        view.scale=clamp(gesture.scale*Math.hypot(b.x-a.x,b.y-a.y)/gesture.distance,1,8);
+        view.x=view.scale===1?0:midX-gesture.anchorX*view.scale;
+        view.y=view.scale===1?0:midY-gesture.anchorY*view.scale;
+        draw();
+      }else if(!gesture.swipe&&(!hasGallery()||view.scale>1)){
+        view.x=gesture.snapshot.x+a.x-gesture.start.x;
+        view.y=gesture.snapshot.y+a.y-gesture.start.y;
+        draw();
+      }
+    };
+    function finish(event,allowSwipe){
+      if(!pointers.has(event.pointerId))return;
+      const start=pointers.size===1&&allowSwipe&&gesture?.swipe?gesture.start:null;
+      pointers.delete(event.pointerId);
+      begin();
+      if(!start)return;
+      const end=position(event),dx=end.x-start.x,dy=end.y-start.y;
+      if(Math.abs(dx)>=48&&Math.abs(dx)>Math.abs(dy)*1.35)step(dx<0?1:-1);
+    }
+    stage.onpointerup=event=>finish(event,true);
+    stage.onpointercancel=stage.onlostpointercapture=event=>finish(event,false);
+  }
+
+  class UnreliableAlignment extends Error {}
+
+  function loadCV(){
+    if(window.cv?.Mat&&window.cv?.ORB)return Promise.resolve();
+    if(!window._wallviewCvLoading){
+      window._wallviewCvLoading=new Promise((resolve,reject)=>{
+        const script=document.createElement('script');
+        let timer;
+        const fail=message=>{
+          clearInterval(timer);
+          script.remove();
+          reject(new Error(message));
+        };
+        script.src='https://docs.opencv.org/4.x/opencv.js';
+        script.onerror=()=>fail('Impossibile avviare l’allineamento automatico. Controlla la connessione a Internet.');
+        script.onload=()=>{
+          let attempts=0;
+          timer=setInterval(()=>{
+            if(window.cv?.Mat&&window.cv?.ORB){
+              clearInterval(timer);
+              resolve();
+            }else if(++attempts>120)fail('L’allineamento automatico non è disponibile.');
+          },250);
+        };
+        document.head.appendChild(script);
+      }).catch(error=>{
+        window._wallviewCvLoading=null;
+        throw error;
+      });
+    }
+    return window._wallviewCvLoading;
+  }
+  function featureImage(img,region=null){const width=640,height=480,r=region||{x:0,y:0,w:img.width,h:img.height},fit=Math.min(width/r.w,height/r.h),drawW=r.w*fit,drawH=r.h*fit,ox=(width-drawW)/2,oy=(height-drawH)/2,c=document.createElement('canvas');c.width=width;c.height=height;c.getContext('2d').drawImage(img,r.x,r.y,r.w,r.h,ox,oy,drawW,drawH);return{mat:cv.imread(c),fit,ox,oy,region:r,drawW,drawH}}  function estimateOrbAlignment(fg,bg,regions,fastThreshold){const items=[],track=x=>(items.push(x),x);try{const src=featureImage(fg,regions?.fg),dst=featureImage(bg,regions?.bg);track(src.mat);track(dst.mat);const sg=track(new cv.Mat()),dg=track(new cv.Mat());cv.cvtColor(src.mat,sg,cv.COLOR_RGBA2GRAY);cv.cvtColor(dst.mat,dg,cv.COLOR_RGBA2GRAY);const orb=track(new cv.ORB(1800)),kp1=track(new cv.KeyPointVector()),kp2=track(new cv.KeyPointVector()),des1=track(new cv.Mat()),des2=track(new cv.Mat()),mask1=track(new cv.Mat()),mask2=track(new cv.Mat());if(fastThreshold!==null)orb.setFastThreshold(fastThreshold);orb.detectAndCompute(sg,mask1,kp1,des1);orb.detectAndCompute(dg,mask2,kp2,des2);if(des1.empty()||des2.empty())throw new UnreliableAlignment();const matcher=track(new cv.BFMatcher(cv.NORM_HAMMING,false)),matches=track(new cv.DMatchVectorVector());matcher.knnMatch(des1,des2,matches,2);const p1=[],p2=[];for(let i=0;i<matches.size();i++){const pair=matches.get(i);if(pair.size()>=2){const a=pair.get(0),b=pair.get(1);if(a.distance<.72*b.distance){const u=kp1.get(a.queryIdx).pt,v=kp2.get(a.trainIdx).pt;p1.push(u.x,u.y);p2.push(v.x,v.y)}}pair.delete()}if(p1.length<12)throw new UnreliableAlignment();const n=p1.length/2,threshold=4.5;function candidate(i,j){const x1=p1[2*i],y1=p1[2*i+1],x2=p1[2*j],y2=p1[2*j+1],u1=p2[2*i],v1=p2[2*i+1],u2=p2[2*j],v2=p2[2*j+1],dx=x2-x1,dy=y2-y1,du=u2-u1,dv=v2-v1,den=dx*dx+dy*dy;if(den<80)return null;const a=(du*dx+dv*dy)/den,b=(dv*dx-du*dy)/den,scale=Math.hypot(a,b);if(scale<.12||scale>3)return null;return{a,b,x:u1-a*x1+b*y1,y:v1-b*x1-a*y1}}function inliers(t){const ids=[];for(let k=0;k<n;k++){const x=p1[2*k],y=p1[2*k+1],ex=t.a*x-t.b*y+t.x-p2[2*k],ey=t.b*x+t.a*y+t.y-p2[2*k+1];if(ex*ex+ey*ey<threshold*threshold)ids.push(k)}return ids}let best=null,ids=[];
+const alternatives=[];
+function consider(i,j){
+  if(i===j)return;
+  const t=candidate(i,j);
+  if(!t)return;
+  const current=inliers(t);
+  if(current.length>=6)alternatives.push({t,count:current.length});
+  if(current.length>ids.length){best=t;ids=current}
+}
+if(n<16){
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++)consider(i,j);
+}else{
+  for(let z=0;z<Math.min(2400,n*(n-1)/2);z++)consider(Math.floor(Math.random()*n),Math.floor(Math.random()*n));
+}
+if(!best||ids.length<6)throw new UnreliableAlignment();let mx=0,my=0,mu=0,mv=0;for(const k of ids){mx+=p1[2*k];my+=p1[2*k+1];mu+=p2[2*k];mv+=p2[2*k+1]}const count=ids.length;mx/=count;my/=count;mu/=count;mv/=count;let aa=0,bb=0,den=0;for(const k of ids){const x=p1[2*k]-mx,y=p1[2*k+1]-my,u=p2[2*k]-mu,v=p2[2*k+1]-mv;aa+=x*u+y*v;bb+=x*v-y*u;den+=x*x+y*y}if(den<1)throw new UnreliableAlignment();const a=aa/den,b=bb/den,x=mu-a*mx+b*my,y=mv-b*mx-a*my,scale=Math.hypot(a,b),centerF={x:src.fit*(fg.width/2-src.region.x)+src.ox,y:src.fit*(fg.height/2-src.region.y)+src.oy},mapped={x:dst.region.x+(a*centerF.x-b*centerF.y+x-dst.ox)/dst.fit,y:dst.region.y+(b*centerF.x+a*centerF.y+y-dst.oy)/dst.fit},base=Math.min(bg.width/fg.width,bg.height/fg.height),finalIds=inliers({a,b,x,y});if(finalIds.length<6||!Number.isFinite(scale)||scale<.1||scale>5)throw new UnreliableAlignment();let residual=0;for(const k of finalIds){const px=p1[2*k],py=p1[2*k+1],ex=a*px-b*py+x-p2[2*k],ey=b*px+a*py+y-p2[2*k+1];residual+=Math.hypot(ex,ey)}residual/=finalIds.length;
+// Evaluate only the inliers of the refitted model, in the actual image area.
+function distribution(points,info){
+  let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+  let sumX=0,sumY=0,sumXX=0,sumYY=0,sumXY=0;
+  const cells=new Set();
+  for(const k of finalIds){
+    const x=(points[2*k]-info.ox)/info.drawW;
+    const y=(points[2*k+1]-info.oy)/info.drawH;
+    minX=Math.min(minX,x);minY=Math.min(minY,y);
+    maxX=Math.max(maxX,x);maxY=Math.max(maxY,y);
+    sumX+=x;sumY+=y;sumXX+=x*x;sumYY+=y*y;sumXY+=x*y;
+    cells.add(clamp(Math.floor(x*3),0,2)+3*clamp(Math.floor(y*3),0,2));
+  }
+  const count=finalIds.length;
+  const vx=sumXX/count-(sumX/count)**2,vy=sumYY/count-(sumY/count)**2;
+  const covariance=sumXY/count-sumX*sumY/count**2;
+  const trace=vx+vy;
+  return {coverage:(maxX-minX)*(maxY-minY),extent:Math.max(maxX-minX,maxY-minY),cells:cells.size,
+    spread:trace>0?(vx*vy-covariance**2)/trace**2:0};
+}
+const source=distribution(p1,src),target=distribution(p2,dst);
+const transform={
+  cx:(mapped.x-bg.width/2)/bg.width,
+  cy:(mapped.y-bg.height/2)/bg.height,
+  scale:scale*src.fit/dst.fit/base,
+  rotation:Math.atan2(b,a)
+};
+const quality={
+  inliers:finalIds.length,
+  inlierRatio:finalIds.length/n,
+  coverage:Math.min(source.coverage,target.coverage),
+  cells:Math.min(source.cells,target.cells),
+  spread:Math.min(source.spread,target.spread),
+  residual
+};
+const plausible=Object.values(transform).every(Number.isFinite)&&
+  transform.scale>=.1&&transform.scale<=3&&
+  Math.abs(transform.rotation)<=Math.PI/2&&
+  Math.abs(transform.cx)<=1&&Math.abs(transform.cy)<=1;
+// Provisional thresholds for upright photos. Reject out-of-range geometry
+// instead of clamping it after measuring a different transform.
+quality.reliable=plausible&&quality.inliers>=12&&quality.inlierRatio>=.25&&
+  quality.coverage>=.025&&quality.cells>=3&&quality.spread>=.01&&quality.residual<3;
+// A short edge or a small cluster can locate a similarity transform, but
+// repeated detections of the same corner at different scales are weak evidence.
+quality.usable=quality.reliable||(
+  plausible&&quality.inlierRatio>=.18&&quality.residual<(quality.spread<.01?2.5:3.3)&&
+  Math.min(source.extent,target.extent)>=.10&&hasDistinctSupport()&&!hasCompetingFit()
+);
+return {...transform,_quality:quality};
+
+function hasDistinctSupport(){
+  const selected=[];
+  for(const k of finalIds){
+    if(selected.every(j=>
+      (p1[2*k]-p1[2*j])**2+(p1[2*k+1]-p1[2*j+1])**2>=144&&
+      (p2[2*k]-p2[2*j])**2+(p2[2*k+1]-p2[2*j+1])**2>=144)){
+      selected.push(k);
+      if(selected.length===4)return true;
+    }
+  }
+  return false;
+}
+function hasCompetingFit(){
+  const comparable=Math.max(6,Math.ceil(finalIds.length*.85));
+  return alternatives.some(({t,count})=>{
+    if(count<comparable)return false;
+    let distance=0;
+    for(const k of finalIds){
+      const px=p1[2*k],py=p1[2*k+1];
+      distance+=Math.hypot((t.a-a)*px-(t.b-b)*py+t.x-x,(t.b-b)*px+(t.a-a)*py+t.y-y);
+    }
+    return distance/finalIds.length>9;
+  });
+}
+}finally{items.reverse().forEach(x=>{try{x.delete()}catch{}})}}
+
+  function autoAlignImages(fg,bg,regions=null){
+    // Keep the normal ORB pass for pairs it can already align.
+    try{
+      const result=estimateOrbAlignment(fg,bg,regions,null);
+      if(result._quality.usable)return result;
+    }catch(error){
+      if(!(error instanceof UnreliableAlignment))throw error;
+    }
+    if(typeof cv.ORB.prototype.setFastThreshold==='function'){
+      // Look for weaker corners at junctions and edges in low contrast photos.
+      const result=estimateOrbAlignment(fg,bg,regions,12);
+      if(result._quality.usable)return result;
+    }
+    throw new UnreliableAlignment();
+  }
+
+  async function blobData(ref){if(!ref)return null;return{name:ref.name||'immagine',type:ref.type||ref.blob.type||'application/octet-stream',data:await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(r.result);r.onerror=()=>reject(r.error);r.readAsDataURL(ref.blob)})}}
+  async function exportProject(p){if(!projectTransferAccess.allowed())return;try{const pack={format:'wallview-project',version:2,exportedAt:new Date().toISOString(),project:{schemaVersion:2,name:p.name,createdAt:p.createdAt,updatedAt:p.updatedAt,viewport:p.viewport||{zoom:1,panX:0,panY:0},plan:await blobData(p.plan),walls:[]}};for(const point of p.walls||[]){pack.project.walls.push({id:point.id,name:point.name,notes:point.notes,x:point.x,y:point.y,photoFinished:await blobData(point.photoFinished),extraPhotos:await Promise.all((point.extraPhotos||[]).map(blobData)),installations:[]});const target=pack.project.walls.at(-1);for(const inst of point.installations||[])target.installations.push({id:inst.id,name:inst.name,photoOpen:await blobData(inst.photoOpen),extraPhotos:await Promise.all((inst.extraPhotos||[]).map(blobData)),transform:inst.transform||freshTransform(),opacity:inst.opacity??.55,lockedAt:inst.lockedAt||null,lockedTransform:inst.lockedTransform||null})}if(!projectTransferAccess.allowed())return;const blob=new Blob([JSON.stringify(pack)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=(p.name||'wallview-lavoro').replace(/[\\/:*?"<>|]+/g,'_')+'.wallview.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}catch(e){showError(e)}}  function dataURLBlobRef(v){if(!v?.data||!String(v.data).startsWith('data:'))throw new Error('La copia contiene un’immagine non valida.');const [meta,b64]=v.data.split(',');const mime=(meta.match(/^data:([^;]+)/)||[])[1]||v.type||'application/octet-stream',bin=atob(b64),bytes=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);return{blob:new Blob([bytes],{type:mime}),name:v.name||'immagine',type:mime}}
+  importInput.onchange=async e=>{const file=e.target.files?.[0];try{if(!file||!projectTransferAccess.allowed())return;const contents=await file.text();if(!projectTransferAccess.allowed())return;const pack=JSON.parse(contents);if(pack.format!=='wallview-project'||!pack.project||!Array.isArray(pack.project.walls))throw new Error('Il file non è una copia valida di un progetto STRIPWALL o WallView.');const src=pack.project,project={id:uid(),schemaVersion:2,name:String(src.name||'Lavoro importato'),createdAt:Date.now(),updatedAt:Date.now(),plan:src.plan?dataURLBlobRef(src.plan):null,viewport:src.viewport||{zoom:1,panX:0,panY:0},walls:[]};for(const old of src.walls){const point={id:uid(),name:String(old.name||'Punto'),notes:String(old.notes||''),x:Number(old.x)||0,y:Number(old.y)||0,photoFinished:old.photoFinished?dataURLBlobRef(old.photoFinished):old.photoClosed?dataURLBlobRef(old.photoClosed):null,extraPhotos:(old.extraPhotos||[]).map(dataURLBlobRef),installations:[]};if(Array.isArray(old.installations)){point.installations=old.installations.map((inst,index)=>({id:uid(),name:String(inst.name||`Impianto ${index+1}`),photoOpen:inst.photoOpen?dataURLBlobRef(inst.photoOpen):null,extraPhotos:(inst.extraPhotos||[]).map(dataURLBlobRef),transform:inst.transform||freshTransform(),opacity:typeof inst.opacity==='number'?inst.opacity:.55,lockedAt:inst.lockedAt||null,lockedTransform:inst.lockedTransform||null}))}else point.installations=[{id:uid(),name:'Impianto 1',photoOpen:old.photoOpen?dataURLBlobRef(old.photoOpen):null,extraPhotos:[],transform:old.transform||freshTransform(),opacity:typeof old.opacity==='number'?old.opacity:.55,lockedAt:old.lockedAt||null,lockedTransform:old.lockedTransform||null}];project.walls.push(point)}normalizeProjectData(project);state.project=project;await saveProject();await renderArchive();alert('Copia caricata come nuovo progetto. Gli altri progetti sono rimasti nell’archivio.')}catch(err){showError(err)}finally{importInput.value=''}};  renderWelcome();
+  if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').then(registration=>registration.update()).catch(()=>{});
+})();
+</script>
+</body>
+</html>
+
